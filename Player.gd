@@ -6,7 +6,7 @@ var pitch_input := 0.0
 
 var jump_force := Vector3.ZERO
 var decend_force := Vector3.ZERO
-var movement_speed := 1500.0
+var movement_speed := 2000.0
 
 @onready var twist_pivot := $TwistPivot
 @onready var pitch_pivot := $TwistPivot/PitchPivot
