@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnrr5gjxpv5kk"]
+
+[ext_resource type="Script" path="res://EnemySpawner.gd" id="1_c8j0n"]
+[ext_resource type="Texture2D" uid="uid://csurtu3k7b0xm" path="res://Prototype Textures/red.png" id="2_07a7r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tdapu"]
+albedo_texture = ExtResource("2_07a7r")
+uv1_scale = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ss44j"]
+material = SubResource("StandardMaterial3D_tdapu")
+
+[node name="EnemySpawner" type="Node3D"]
+script = ExtResource("1_c8j0n")
+
+[node name="pos1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="pos2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="pos3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="pos4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ss44j")

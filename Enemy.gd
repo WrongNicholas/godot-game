@@ -4,6 +4,14 @@ extends CharacterBody3D
 
 var SPEED = 7.0
 
+func _ready() -> void:
+	set_physics_process(false)
+	call_deferred("dump_first_physics_frame")
+	
+func dump_first_physics_frame() -> void:
+	await get_tree().physics_frame
+	set_physics_process(true)
+
 func _physics_process(delta):
 	var current_location = global_transform.origin
 	var next_location = nav_agent.get_next_path_position()
