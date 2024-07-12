@@ -40,7 +40,6 @@ script = ExtResource("1_i7ecq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.412, -4.08537)
 top_level = true
 axis_lock_angular_y = true
-linear_damp = 3.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1gc62")
