@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1ovxef01ntbf"]
+[gd_scene load_steps=12 format=3 uid="uid://c1ovxef01ntbf"]
 
+[ext_resource type="Script" path="res://level.gd" id="1_i7ecq"]
 [ext_resource type="PackedScene" uid="uid://dshkqmfxg6fp0" path="res://player.tscn" id="1_ubtsj"]
+[ext_resource type="Texture2D" uid="uid://4hlmq4n0edsq" path="res://Prototype Textures/Orange.png" id="2_8ddvr"]
+[ext_resource type="PackedScene" uid="uid://bw3cn6ueksbf5" path="res://enemy.tscn" id="4_lcm87"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hn3xd"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -15,13 +18,23 @@ sky = SubResource("Sky_uj8yi")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_ask0a"]
+vertices = PackedVector3Array(-49.5, 0.5, -49.5, -49.5, 0.5, 49.5, 49.5, 0.5, 49.5, 49.5, 0.5, -49.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6t8l"]
+albedo_texture = ExtResource("2_8ddvr")
+uv1_scale = Vector3(10, 10, 10)
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_btyhg"]
+material = SubResource("StandardMaterial3D_g6t8l")
 size = Vector2(10, 10)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bek1g"]
 data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_i7ecq")
 
 [node name="Player" parent="." instance=ExtResource("1_ubtsj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.412, -4.08537)
@@ -36,29 +49,18 @@ environment = SubResource("Environment_1gc62")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_ask0a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("PlaneMesh_btyhg")
+skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/MeshInstance3D"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_bek1g")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -10)
-mesh = SubResource("PlaneMesh_btyhg")
-skeleton = NodePath("../MeshInstance3D")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_bek1g")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -0.5, 0, 1, -2.18557e-08, 0, 2.5, -5)
-mesh = SubResource("PlaneMesh_btyhg")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_bek1g")
+[node name="Enemy" parent="." instance=ExtResource("4_lcm87")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.2691, -0.0315957, 6.1329)

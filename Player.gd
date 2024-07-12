@@ -1,6 +1,6 @@
 extends RigidBody3D
 
-var mouse_sensitivity := 0.0005
+var mouse_sensitivity := 0.005
 var twist_input := 0.0
 var pitch_input := 0.0
 
