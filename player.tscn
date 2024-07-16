@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dshkqmfxg6fp0"]
+[gd_scene load_steps=6 format=3 uid="uid://dshkqmfxg6fp0"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_01ees"]
 [ext_resource type="Script" path="res://Reticle.gd" id="2_gbbim"]
@@ -6,6 +6,9 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ya2sn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_07j4x"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_p857p"]
+font_size = 80
 
 [node name="Player" type="CharacterBody3D"]
 axis_lock_angular_x = true
@@ -74,3 +77,12 @@ width = 2.0
 position = Vector2(20, 20)
 points = PackedVector2Array(-5, 0, -15, 0)
 width = 2.0
+
+[node name="Label" type="Label" parent="UserInterface"]
+visible = false
+layout_mode = 0
+offset_left = 17.0
+offset_right = 67.0
+offset_bottom = 110.0
+text = "0"
+label_settings = SubResource("LabelSettings_p857p")

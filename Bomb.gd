@@ -11,5 +11,4 @@ func _process(delta):
 		var explosion = explosion_scene.instantiate()
 		get_parent().add_child(explosion)
 		explosion.position = global_position
-		print("Test!")
 		queue_free()

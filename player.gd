@@ -17,6 +17,8 @@ var fire_timer = 0.0
 @export var bomb_rate = 4.0
 var bomb_timer = 0.0
 
+@onready var label = $UserInterface/Label
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -52,6 +54,11 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
+		
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider().is_in_group("enemies"):
+			die()
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -65,6 +72,10 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+	
+func die():
+	if get_tree():
+		get_tree().reload_current_scene()
 	
 func shoot():
 	var bullet := bullet_scene.instantiate()
